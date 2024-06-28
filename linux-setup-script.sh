@@ -17,25 +17,27 @@ check_which_pkgmanager(){
 
 }
 
-installZsh(){
-    if check_installed zsh; then
-        echo "zsh is already installed"
-    else
-        sudo apt install zsh
-}
-
-installTmux(){
-    if check_installed tmux; then
-        echo "tmux is already installed"
-    else
-        sudo apt install tmux
-}
-
-installStarship(){
+case $(command -v apt || command -v dnf) in
+    *apt)
+        if check_installed zsh; then
+            echo "zsh is already installed"
+        else
+            sudo apt install zsh
+        fi
 
 
+        if check_installed tmux; then
+            echo "tmux is already installed"
+        else
+            sudo apt install tmux
+        fi
+        ;;
+esac
 
-}
+#installStarship(){
 
 
-check_which_pkgmanager
+
+#}
+
+
