@@ -25,6 +25,13 @@ install_nvim(){
     sudo ln -s /opt/neovim/AppRun /usr/bin/nvim
 }
 
+install_starship(){
+    if ! curl -sS https://starship.rs/install.sh | sh; then
+        echo -e "${RED}Something went wrong during starship install!${RC}"
+        exit 1
+    fi
+}
+
 case $(command -v apt || command -v dnf) in
     *apt)
         if check_installed zsh; then
@@ -45,12 +52,13 @@ case $(command -v apt || command -v dnf) in
         else
             install_nvim
         fi
+
+        if check_installed starship; then
+            echo "starship is already installed"
+        else
+            install_starship
+        fi
         ;;
 esac
 
-#installStarship(){
-
-
-
-#}
 
