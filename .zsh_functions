@@ -1,0 +1,20 @@
+# make HTB env
+hack () {
+	
+	machine_name="$1"
+
+	[ "$PWD" = "$HOME/HTB" ] && [ ! -d "$HOME/HTB/$machine_name" ] && { mkdir "$machine_name" && cd "$machine_name" && touch "$machine_name".txt }
+}
+
+#add to /etc/hosts
+addhost () {
+	local ip="$1"
+	local hostname="$2"
+	printf "$ip $hostname" | sudo tee --append /etc/hosts
+}
+
+
+# connect to htb openvpn
+connect_to_htb() {
+	sudo openvpn "$HOME/HTB/vpn_files/lab_aloksingh2711.ovpn"
+}
